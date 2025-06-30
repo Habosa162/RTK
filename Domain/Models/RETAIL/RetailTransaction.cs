@@ -1,4 +1,5 @@
-﻿using RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT;
+﻿using RetailEcommerce.Domain.Models.CORE;
+using RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT;
 
 namespace RetailEcommerce.Domain.Models.RETAIL
 {
@@ -12,5 +13,7 @@ namespace RetailEcommerce.Domain.Models.RETAIL
         public string PaymentMethod { get; set; }
         public DateTime CreatedAt { get; set; }
         public ICollection<RetailTransactionItem> Items { get; set; }
+        public ICollection<Payment> Payments { get; set; }
+
     }
 }
