@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RetailEcommerce.Domain.Models;
 using RetailEcommerce.Infrastructure.Data;
+using RetailEcommerce.Services.Interfaces;
+using RetailEcommerce.Services;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -69,6 +71,8 @@ namespace RetailEcommerce.API
 
 
             //AWS S3 Service
+            builder.Services.AddScoped<ICloudService, AwsService>();
+            
             builder.Services.AddSingleton<AWSCredentials>(sp =>
                 new BasicAWSCredentials(
                     builder.Configuration["AWS:AccessKey"],
