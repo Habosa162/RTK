@@ -1,0 +1,16 @@
+﻿using RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT;
+
+namespace RetailEcommerce.Domain.Models.RETAIL
+{
+    public class RetailTransaction
+    {
+        public int TransactionId { get; set; }
+        public int? CustomerId { get; set; }
+        public Customer Customer { get; set; }
+        public int CashierId { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string PaymentMethod { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public ICollection<RetailTransactionItem> Items { get; set; }
+    }
+}
