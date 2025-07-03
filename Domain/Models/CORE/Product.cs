@@ -1,4 +1,6 @@
-﻿namespace RetailEcommerce.Domain.Models.Core
+﻿using RetailEcommerce.Domain.Models.CORE;
+
+namespace RetailEcommerce.Domain.Models.Core
 {
     public class Product
     {
