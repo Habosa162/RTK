@@ -1,4 +1,5 @@
 ﻿using RetailEcommerce.Domain.Models.Core;
+using RetailEcommerce.Domain.Models.INVENTORY;
 
 namespace RetailEcommerce.Domain.Interfaces.IBranch
 {
@@ -7,8 +8,7 @@ namespace RetailEcommerce.Domain.Interfaces.IBranch
         Task<IEnumerable<Branch>> GetAllAsync();
         Task<Branch> GetByIdAsync(int id);
         Task AddAsync(Branch branch);
-        void Update(Branch branch);
-        void Delete(Branch branch);
-        Task SaveAsync();
+        Task UpdateAsync(Branch branch);
+        Task DeleteAsync(int id);
     }
 }

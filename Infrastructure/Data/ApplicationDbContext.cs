@@ -22,7 +22,7 @@ namespace RetailEcommerce.Infrastructure.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
-        // Orders (if you're using orders)
+     
         public DbSet<Order> Orders { get; set; }
         // Inventory
         public DbSet<Inventory> Inventories { get; set; }

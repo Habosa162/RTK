@@ -1,10 +1,13 @@
 ﻿namespace RetailEcommerce.Domain.Models.Core
 {
-    public class Branch
-    {
-        public int BranchId { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public string ContactNumber { get; set; }
-    }
+    //public class Branch
+    //{
+    //    public int BranchId { get; set; }
+    //    public string Name { get; set; }
+    //    public string Location { get; set; }
+    //    public string ContactNumber { get; set; }
+    //}
+
+
+    //malosh lazma mahowa fe elInventory
 }
