@@ -97,6 +97,7 @@ namespace RetailEcommerce.API
             {
                 app.MapScalarApiReference();
             }
+            
             app.UseRouting();
             app.UseCors("AllowAngularApp");
             app.UseHttpsRedirection();
