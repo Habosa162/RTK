@@ -1,9 +1,11 @@
 ﻿using RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT;
+using System.ComponentModel.DataAnnotations;
 
 namespace RetailEcommerce.Domain.Models.SHIPPING
 {
     public class ShippingAddress
     {
+        [Key]
         public int AddressId { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }

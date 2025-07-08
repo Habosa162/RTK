@@ -1,10 +1,12 @@
 ﻿using RetailEcommerce.Domain.Models.CORE;
 using RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT;
+using System.ComponentModel.DataAnnotations;
 
 namespace RetailEcommerce.Domain.Models.RETAIL
 {
     public class RetailTransaction
     {
+        [Key]
         public int TransactionId { get; set; }
         public int? CustomerId { get; set; }
         public Customer Customer { get; set; }

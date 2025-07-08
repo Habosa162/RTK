@@ -1,9 +1,11 @@
 ﻿using RetailEcommerce.Domain.Models.E_COMMERCE;
+using System.ComponentModel.DataAnnotations;
 
 namespace RetailEcommerce.Domain.Models.SHIPPING
 {
     public class ShippingDetail
     {
+        [Key]
         public int ShippingId { get; set; }
         public int OrderId { get; set; }
         public Order Order { get; set; }

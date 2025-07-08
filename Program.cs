@@ -10,8 +10,9 @@ using RetailEcommerce.Services.Interfaces;
 using RetailEcommerce.Services;
 using Scalar.AspNetCore;
 using System.Text;
+using Serilog;
 
-namespace RetailEcommerce.API
+namespace RetailEcommerce
 {
     public class Program
     {
@@ -19,37 +20,36 @@ namespace RetailEcommerce.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configure Serilog
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+
+            //builder.Host.UseSerilog(); 
 
             builder.Services.AddControllers();
 
             //CORS Configuration
             builder.Services.AddCors(options =>
             {
-                //https://legacy-estates.co
                 options.AddPolicy("AllowAngularApp", policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200") // Explicitly allow Angular frontend
-                          .AllowAnyMethod()                    // Allow GET, POST, OPTIONS, etc.
-                          .AllowAnyHeader()                    // Allow Authorization, Content-Type, etc.
-                          .AllowCredentials();                 // Support credentialed requests
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
                 });
             });
-            
-            
-            //add dbcontext
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
-            
-            
-            //add identity
+
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
-            
-            
-            // Configure Authentication using JSON web Token
+
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,11 +68,8 @@ namespace RetailEcommerce.API
                 };
             });
 
-
-
-            //AWS S3 Service
             builder.Services.AddScoped<ICloudService, AwsService>();
-            
+
             builder.Services.AddSingleton<AWSCredentials>(sp =>
                 new BasicAWSCredentials(
                     builder.Configuration["AWS:AccessKey"],
@@ -85,11 +82,6 @@ namespace RetailEcommerce.API
                     Amazon.RegionEndpoint.GetBySystemName(builder.Configuration["AWS:Region"])
                 )
             );
-            
-            
-            
-            //Projects Injection
-
 
             var app = builder.Build();
 
@@ -97,7 +89,7 @@ namespace RetailEcommerce.API
             {
                 app.MapScalarApiReference();
             }
-            
+
             app.UseRouting();
             app.UseCors("AllowAngularApp");
             app.UseHttpsRedirection();

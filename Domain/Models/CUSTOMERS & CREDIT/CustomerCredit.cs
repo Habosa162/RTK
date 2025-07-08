@@ -1,7 +1,11 @@
-﻿namespace RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT
 {
     public class CustomerCredit
     {
+        [Key]
+        public int Id { get; set; }
         public int CreditId { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
