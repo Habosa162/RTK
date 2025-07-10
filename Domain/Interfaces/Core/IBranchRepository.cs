@@ -3,12 +3,12 @@ using RetailEcommerce.Domain.Models.INVENTORY;
 
 namespace RetailEcommerce.Domain.Interfaces.Core
 {
-    public interface IBranchRepository
+    public interface IBranchRepository: IGenericRepository<Branch,BranchDTO>
     {
-        Task<IEnumerable<Branch>> GetAllAsync();
+        Task<IEnumerable<Branch>> GetAllAsync(int pageNumber, int pageSize);
         Task<Branch> GetByIdAsync(int id);
         Task<Branch> AddAsync(BranchDTO branchDTO);
-        Task<Branch> UpdateAsync(BranchDTO branchDTO);
-        Task DeleteAsync(int id);
+        Task<Branch> UpdateAsync(int id , BranchDTO branchDTO);
+        Task<bool> DeleteAsync(int id);
     }
 }

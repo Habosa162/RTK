@@ -37,24 +37,71 @@ namespace RetailEcommerce.Infrastructure.Repositories.Core
 
         }
 
-        public Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var branch =  await _context.Branches.FirstOrDefaultAsync(b => b.BranchId == id);
+                if (branch==null)
+                {
+                    return false; 
+                }
+                branch.isDeleted = true;
+                _context.Branches.Update(branch);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw; 
+            }
         }
 
-        public Task<IEnumerable<Branch>> GetAllAsync()
+        public async Task<IEnumerable<Branch>> GetAllAsync(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Branches
+                    .Where(b=>b.isDeleted==false)
+                    .Skip((pageNumber-1)* pageSize)
+                    .Take(pageSize)
+                    .ToListAsync(); 
+            }
+            catch (DbUpdateException ex) {
+                throw; 
+            }
         }
 
-        public Task<Branch> GetByIdAsync(int id)
+        public async Task<Branch> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Branches.FirstOrDefaultAsync(b => b.BranchId == id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<Branch> UpdateAsync(BranchDTO branchDTO)
+        public async Task<Branch> UpdateAsync(int id, BranchDTO branchDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var branch =  await _context.Branches.FirstOrDefaultAsync(b => b.BranchId == id);
+                if (branch == null)
+                {
+                    return null;
+                }
+                branch.Name = branchDTO.Name;
+                branch.ContactNumber = branchDTO.ContactNumber;
+                branch.Location = branchDTO.Location;
+                _context.Branches.Update(branch);
+                return await _context.SaveChangesAsync() > 0 ? branch : null;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

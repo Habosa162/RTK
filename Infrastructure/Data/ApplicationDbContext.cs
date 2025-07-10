@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RetailEcommerce.Domain.Models;
 using RetailEcommerce.Domain.Models.Core;
+using RetailEcommerce.Domain.Models.CORE;
 using RetailEcommerce.Domain.Models.CUSTOMERS___CREDIT;
 using RetailEcommerce.Domain.Models.E_COMMERCE;
 using RetailEcommerce.Domain.Models.INVENTORY;
@@ -21,8 +22,10 @@ namespace RetailEcommerce.Infrastructure.Data
         // Core Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
-
-     
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Order> Orders { get; set; }
         // Inventory
         public DbSet<Inventory> Inventories { get; set; }
